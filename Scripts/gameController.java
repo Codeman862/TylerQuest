@@ -1,5 +1,4 @@
 package Scripts;
-import generic_soldier.Tank;
 import java.io.IOException;
 import java.util.ArrayList;
 public class gameController{
@@ -8,8 +7,7 @@ public class gameController{
 
 static public ArrayList cosmeticList=new ArrayList();			//this is our arraylist of cosmetic battlefield damage(blown up trees)
 static public ArrayList tempCosemeticList=new ArrayList();		//arraylist of temporary battle damage(bullet holes, explosions)
-static public ArrayList AIUnitlist=new ArrayList();				//arraylists of all units on the battlefield, player and ai
-static public ArrayList playerUnitlist=new ArrayList();
+static public ArrayList Unitlist=new ArrayList();
 static public ArrayList structureList=new ArrayList();			//arraylist of all structures, ai and player(trees, rocks, trenches)
 
 	
@@ -31,29 +29,9 @@ static public ArrayList structureList=new ArrayList();			//arraylist of all stru
 		//call this from run
 		//call all other methods from this
 		//Game_Applet.Instantiate( obj);
-		System.out.println("Timer"+waveTimer[0]+"   "+waveTimer[1]);
-		waveTimer[0]=System.currentTimeMillis();
-		if(waveTimer[0]>waveTimer[1]){
-			sendNewWave();
-			waveTimer[1]=15000+System.currentTimeMillis();
-			//waveTimer=resetTimer(waveTimer,1000,0);
-		}
-		System.out.println("\n\n\n"+AIUnitlist.size()+"\n\n\n\n\n\n");
-	}
-	public void sendNewWave() throws IOException{
-		System.out.println("New Wave Sent");
-		int spawnnum=(int) (waveNumber*.5+2);
-		if(spawnnum>10){
-			spawnnum=10;
-		}
-		for(int a=0;a<spawnnum;a++){
-		Soldier tempSol = new Tank((int)(Math.random()*450+50), -90, 60, 60);
-		
-		Game_Applet.InstantiateEnemy(tempSol );
 		
 		}
-		waveNumber++;
-	}
+		
 	public long[] resetTimer(long[]timer,float duration,float percentError){
 		
 		//NOT WORKING DO NOT USE UNLESS FIXED
@@ -75,7 +53,7 @@ static public ArrayList structureList=new ArrayList();			//arraylist of all stru
 		int returnint=-1;
 		int size=list.size();
 		for(int a=0;a<size;a++){
-			Soldier sol=(Soldier)list.get(a);
+			Unit sol=(Unit)list.get(a);
 			if(sol.targetname==unitname){
 				returnint=a;
 				break;
@@ -90,9 +68,9 @@ static public ArrayList structureList=new ArrayList();			//arraylist of all stru
 		
 		//-1 for nothing
 		int size=list.size();
-		Soldier sol=null;
+		Unit sol=null;
 		for(int a=0;a<size;a++){
-			sol=(Soldier)list.get(a);
+			sol=(Unit)list.get(a);
 			if(sol.targetname==unitIndex){
 				break;
 			}
@@ -103,7 +81,7 @@ static public ArrayList structureList=new ArrayList();			//arraylist of all stru
 		int targetlistsize=targetList.size();
 		for(int a=0;a<targetlistsize;a++){
 			
-			Soldier targetSol=(Soldier)targetList.get(a);
+			Unit targetSol=(Unit)targetList.get(a);
 			if(targetSol.isDead==true||targetSol.invisible_to_player==true){}
 			else{
 				//gabe check my distance code

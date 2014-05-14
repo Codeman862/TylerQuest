@@ -15,6 +15,11 @@ public class cosmeticSprite {
 	public Image defaultImage;
 	public boolean invisible_to_player=false;
 	
+
+	public Image altSprites[]=new Image[4];
+	public String altSpritesPath[]=new String[4];
+	
+	
 	public float naturalRotation=0;
 	boolean isDead=false;
 	public float rotation=0;

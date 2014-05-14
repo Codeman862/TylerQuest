@@ -21,16 +21,15 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 	int windowsizex=700;					//window sizes
 	public static int windowsizey=600;
 	int playerlives=10;
-	public playerSoldier selectedUnit;
 	gameController controller=new gameController();
-	
-	
-	
-	
 	Font font1 = new Font("consolas", Font.PLAIN, 24);			//font
 	public Game_Applet(){
 		
-	}	
+	}
+	public static void main(String[]args){
+		Game_Applet app=new Game_Applet();
+		app.setVisible(true);
+	}
 	public void init(){
 			setSize(windowsizex, windowsizey);
 			setBackground(Color.WHITE);
@@ -41,43 +40,10 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 	public void run() {
 		try{
 		Thread.currentThread().setPriority(Thread.MIN_PRIORITY);	//threading stuff
-		cosmeticSprite temptree;							//tree and soldier are for testing purposes
-		//temptree = new Tree(20,20,30,30);
 		
-		/*
-		int Leafnum=(int) (Math.random()*10+5);
-		for(int a=0;a<Leafnum;a++){
-			Leaf1 l=new Leaf1((int)(Math.random()*300+100),(int) (Math.random()*300+100),20,20);
-			Instantiate(controller.cosmeticList,l);
-		}*/
-		pauseButton pause=new pauseButton(30,30,45,45);
-		
-		
-		generic_soldier soldier1=new generic_soldier(200,this.windowsizey,45,45);
-		generic_soldier soldier2=new generic_soldier(500,this.windowsizey,45,45);
-		generic_soldier soldier3=new generic_soldier(400,this.windowsizey,45,45);
-		generic_soldier soldier4=new generic_soldier(300,this.windowsizey,45,45);
-
-		soldier1.setMoveOrders(soldier1.x, soldier1.y-100);
-		soldier2.setMoveOrders(soldier2.x, soldier2.y-120);
-		soldier3.setMoveOrders(soldier3.x, soldier3.y-120);
-		soldier4.setMoveOrders(soldier4.x, soldier4.y-100);
-		//Soldier tempSol = new Tank(50, -70, 90, 90);
-		//tempSol.setMoveOrders(100, 100);
-		
-		//Instantiate(controller.AIUnitlist,tempSol );
-		Instantiate(controller.structureList,pause);
-		
-		Instantiate(controller.playerUnitlist,soldier2);
-		Instantiate(controller.playerUnitlist,soldier3);
-		Instantiate(controller.playerUnitlist,soldier4);
-		
-		Instantiate(controller.playerUnitlist,soldier1);		//to create a unit call instantiate with
-		//Instantiate(controller.structureList,temptree);		//the list and the object you want to create
 		while(true){
 			//update loop
-			excecuteListAI(controller.playerUnitlist);		//excecute actions for unit AIs, make another one for structure effects
-			excecuteListAI(controller.AIUnitlist);
+			excecuteListAI(controller.Unitlist);		//excecute actions for unit AIs, make another one for structure effects
 			
 			
 			
@@ -101,43 +67,25 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		for(int a=0;a<size;a++){
 			//try{
 			size=list.size();
-			Soldier sol;
+			Unit sol;
 			if(a>=size){
 				break;
 			}
-			sol=(Soldier)list.get(a);//some sort of error here
-
-			
-		
+			sol=(Unit)list.get(a);
 			System.out.println(a+" list index, unit name is "+sol.targetname);
 			System.out.println(sol.y+" "+sol.x+" soldier x and y");
 			sol.checkIfAlive();
 			if(sol.isDead==false){
-				sol.soldierState();			//calling the soldier decision making
-				sol.doMove();				//telling the soldier to move
-				list.set(a, sol);
-				//list.set(a, sol);
 			}
-			}
-			/*catch(IndexOutOfBoundsException e){
-				
-				System.out.println("shit went wrong at excecuting list AI");
-			}*/
-			
 		}
+	}
 		
 	
 	public float findDistance(ArrayList list,ArrayList targetList,int shooterName,int targetName){
-		//finds the distance between 2 objects
-		
-		Soldier shooter=(Soldier)list.get(shooterName);
-		Soldier targetSol=(Soldier)list.get(targetName);
-		
-			
-			//gabe check my distance code
-			float distance=(float) (Math.sqrt(Math.pow(shooter.x-targetSol.x,2)+Math.pow(shooter.y-targetSol.y,2)));
-			
-		
+		Unit shooter=(Unit)list.get(shooterName);
+		Unit targetSol=(Unit)list.get(targetName);
+		float distance=(float) (Math.sqrt(Math.pow(shooter.x-targetSol.x,2)+Math.pow(shooter.y-targetSol.y,2)));
+
 		return distance;
 	}
 	public void keyPressed(KeyEvent key){}
@@ -156,8 +104,7 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		
 		drawList(off,controller.cosmeticList);
 		drawList(off,controller.structureList);
-		drawList(off,controller.AIUnitlist);
-		drawList(off,controller.playerUnitlist);
+		drawList(off,controller.Unitlist);
 		//we're going to use graphics 2d to do all our painting instead of just graphics
 		/*AffineTransform for rotation;
 			
@@ -191,9 +138,6 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 			AffineTransform newform=new AffineTransform();
 			//use this for rotating, scaling, transforming ect
 			
-			//newform.setToRotation(cos.rotation);
-			//newform.rotate(cos.rotation);
-			//newform.rotate(cos.rotation, cos.x+.5*cos.width, cos.y+.5*cos.height);
 			float degreesToRadians=(float) (Math.PI/180);
 			float degreemeasure=cos.rotation;
 			degreemeasure=degreemeasure+degreesToRadians*cos.naturalRotation;
@@ -215,7 +159,7 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		
 		int tempSize=list.size();
 		for(int a=0;a<tempSize;a++){
-			Soldier tempSol=(Soldier)list.get(a);
+			Unit tempSol=(Unit)list.get(a);
 			String tempname=tempSol.displayName;
 			if(tempname.equals(findString)){
 				returnAddress=a;
@@ -237,24 +181,6 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		cosmeticSprite spri=(cosmeticSprite)obj;
 		
 		spri.targetname=gameController.getNewName();
-		List.add(spri);
-	}
-	public static void InstantiateEnemy(Object obj){
-		//USE THIS TO CREATE OBJECTS
-		ArrayList List=gameController.AIUnitlist;
-		cosmeticSprite spri=(cosmeticSprite)obj;
-
-		spri.targetname=gameController.getNewName();
-		spri=(Soldier)spri;
-		List.add(spri);
-	}
-	public static void InstantiatePlayerSoldier(Object obj){
-		//USE THIS TO CREATE OBJECTS
-		ArrayList List=gameController.playerUnitlist;
-		cosmeticSprite spri=(cosmeticSprite)obj;
-		
-		spri.targetname=gameController.getNewName();
-		spri=(Soldier)spri;
 		List.add(spri);
 	}
 	public void rotatePrefab(float degrees){
@@ -283,52 +209,8 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		
 		//in collisions create another method that returns all
 		//things at the position instead of just the first one
-		
-		if (buttonPressed==1){
-			//left mouse button
-			int index=col.checkPosition(x,y,controller.playerUnitlist);
-			if(index==-1){
-				System.out.println("not finding anything");
-				selectedUnit=null;
-			}
-			else{
-				//there may be a possible issue with our selected unit.
-				//we kinda have to use the selected unit instead of an index
-				//we may need to have a reserved spot in the arraylist for the selected unit
-				
-				selectedUnit=(playerSoldier) controller.playerUnitlist.get(index);
-			}
-			int cosmeticListIndex=col.checkPosition(x, y,controller.structureList);
-			if(cosmeticListIndex==-1){}
-			else{
-				cosmeticSprite selectedCosmetic= (cosmeticSprite) controller.structureList.get(cosmeticListIndex);
-				if(selectedCosmetic.displayname.equalsIgnoreCase("PauseButton")){
-					generic_soldier soldier;
-					try {
-						soldier = new generic_soldier((int) (Math.random()*400+100),this.windowsizey,45,45);
-					
-
-					soldier.setMoveOrders(soldier.x, (int) (soldier.y-120+(Math.random()*30)));
-					Instantiate(controller.playerUnitlist,soldier);
-					} 
-					catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		if(buttonPressed==3){
-			//right mouse button
-			if(selectedUnit!=null){
-				//fix selected
-				selectedUnit.setMoveOrders(x, y);
-			}
-		}
-		if(buttonPressed==2){
-			
-		}
 	}
+	
 	public void mouseEntered(MouseEvent mouse) {
 		//when the mouse enters the applet window	
 	}
