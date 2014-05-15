@@ -63,13 +63,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,
 									// for preformance
 		for (int a = 0; a < tempSize; a++) {
 			cosmeticSprite cos = list.get(a);// getting the transform and sprite
-			if (cos.invisible_to_player == false && cos.isDead == false) {// some
-																			// enemies
-																			// may
-																			// be
-																			// invis
-																			// to
-																			// player
+			if (cos.invisible_to_player == false && cos.isDead == false) {// some enemies may be invis to player
 				int x1 = cos.x; // temp variables
 				int y1 = cos.y;
 				int height = cos.height;
@@ -144,8 +138,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,
 	}
 
 	public int findname(ArrayList list, String findString) {
-		// scans through the list for something named the string and returns the
-		// address
+		// scans through the list for something named the string and returns the address
 		// -1 for nothing
 		int returnAddress = -1;
 

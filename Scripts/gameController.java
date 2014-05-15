@@ -7,32 +7,10 @@ public class gameController {
 	long[] waveTimer = new long[3];
 	int waveNumber = 0;
 
-	static public ArrayList<cosmeticSprite> cosmeticList = new ArrayList<cosmeticSprite>(); // this
-																							// is
-																							// our
-																							// arraylist
-																							// of
-																							// cosmetic
-																							// battlefield
-																							// damage(blown
-																							// up
-																							// trees)
-	static public ArrayList tempCosemeticList = new ArrayList(); // arraylist of
-																	// temporary
-																	// battle
-																	// damage(bullet
-																	// holes,
-																	// explosions)
+	static public ArrayList<cosmeticSprite> cosmeticList = new ArrayList<cosmeticSprite>(); // this is our arraylist of cosmetic battlefield damage(blown up trees)
+	static public ArrayList tempCosemeticList = new ArrayList(); // arraylist of temporary battle damage(bullet holes, explosions)
 	static public ArrayList<cosmeticSprite> Unitlist = new ArrayList<cosmeticSprite>();
-	static public ArrayList<cosmeticSprite> structureList = new ArrayList<cosmeticSprite>(); // arraylist
-																								// of
-																								// all
-																								// structures,
-																								// ai
-																								// and
-																								// player(trees,
-																								// rocks,
-																								// trenches)
+	static public ArrayList<cosmeticSprite> structureList = new ArrayList<cosmeticSprite>(); // arraylist of all structures, ai and player(trees, rocks, trenches)
 
 	public static int namecount = 0;// current name index,
 
