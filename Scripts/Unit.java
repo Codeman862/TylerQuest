@@ -1,6 +1,5 @@
 package Scripts;
 
-import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ public abstract class Unit extends cosmeticSprite{
 	public int health=100;
 	public int accuracy=15;
 	
-	public int side=(int) 2;				//determines the faction, 0 for other, 1 for player, 2 for ai, 3 for possibly a 2nd ai
+	public int side=2;				//determines the faction, 0 for other, 1 for player, 2 for ai, 3 for possibly a 2nd ai
 	
 	public int state=-1;			//soldier state
 	
@@ -35,7 +34,7 @@ public abstract class Unit extends cosmeticSprite{
 	public long reloadTimer[]=new long[4];//reloading timer
 	*/
 
-	public long TimerExample[]={(long) 500,(long) 500,(long) 500,-1};//0 is timer,1 is current duration, 2 is base duration, 4 is the lock
+	public long TimerExample[]={500,500,500,-1};//0 is timer,1 is current duration, 2 is base duration, 4 is the lock
 	
 	public void generateName(){
 		String nameArray[]={"s","d"};

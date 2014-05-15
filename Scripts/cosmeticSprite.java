@@ -1,11 +1,9 @@
 package Scripts;
-import java.awt.*;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.print.DocFlavor.URL;
 
 public class cosmeticSprite {
 	//public Game_Applet app=new Game_Applet();//use this to call any methods from the applet

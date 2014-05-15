@@ -14,9 +14,9 @@ static public ArrayList structureList=new ArrayList();			//arraylist of all stru
 	public gameController(){
 		namecount=0;
 		//0 is timer,1 is current duration, 2 is base duration
-		waveTimer[0]=(long) 1000;	//timers are either in milliseconds or seconds, I forget which
-		waveTimer[1]=(long) 1000;
-		waveTimer[2]=(long) 1000;
+		waveTimer[0]=1000;	//timers are either in milliseconds or seconds, I forget which
+		waveTimer[1]=1000;
+		waveTimer[2]=1000;
 	}
 	
 	public static int namecount=0;//current name index,

@@ -1,10 +1,5 @@
 package Sprites;
-import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-
-import javax.print.DocFlavor.URL;
 public class bloodSprite extends Scripts.Prefab{
 	public bloodSprite(int x,int y,int width,int height) throws IOException{
 		//constructor

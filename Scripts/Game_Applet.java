@@ -11,11 +11,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game_Applet extends Applet implements Runnable,KeyListener,MouseListener{
 	int windowsizex=700;					//window sizes
@@ -30,6 +28,7 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		Game_Applet app=new Game_Applet();
 		app.setVisible(true);
 	}
+	@Override
 	public void init(){
 			setSize(windowsizex, windowsizey);
 			setBackground(Color.WHITE);
@@ -37,13 +36,14 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 			addKeyListener(this);					//add listeners here
 			addMouseListener(this);
 	}
+	@Override
 	public void run() {
 		try{
 		Thread.currentThread().setPriority(Thread.MIN_PRIORITY);	//threading stuff
 		
 		while(true){
 			//update loop
-			excecuteListAI(controller.Unitlist);		//excecute actions for unit AIs, make another one for structure effects
+			excecuteListAI(gameController.Unitlist);		//excecute actions for unit AIs, make another one for structure effects
 			
 			
 			
@@ -88,23 +88,27 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 
 		return distance;
 	}
+	@Override
 	public void keyPressed(KeyEvent key){}
+	@Override
 	public void keyReleased(KeyEvent key){
 		
 	}
+	@Override
 	public void stop(){}
 	Image offscreen;		//offscreen is for buffering stuff
+	@Override
 	public void paint(Graphics paint){
 		//when painting paint background objects first
 		Graphics2D g=(Graphics2D)paint;
-		int tempSize=controller.structureList.size();			//temp variable for preformance reasons
+		int tempSize=gameController.structureList.size();			//temp variable for preformance reasons
 		
 		offscreen=createImage(windowsizex,windowsizey);
 		Graphics2D off=(Graphics2D) offscreen.getGraphics();
 		
-		drawList(off,controller.cosmeticList);
-		drawList(off,controller.structureList);
-		drawList(off,controller.Unitlist);
+		drawList(off,gameController.cosmeticList);
+		drawList(off,gameController.structureList);
+		drawList(off,gameController.Unitlist);
 		//we're going to use graphics 2d to do all our painting instead of just graphics
 		/*AffineTransform for rotation;
 			
@@ -120,8 +124,8 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		for(int a=0;a<tempSize;a++){
 			cosmeticSprite cos=(cosmeticSprite) list.get(a);//getting the transform and sprite
 			if(cos.invisible_to_player==false&&cos.isDead==false){//some enemies may be invis to player
-			int x1=(int)cos.x;		//temp variables
-			int y1=(int)cos.y;
+			int x1=cos.x;		//temp variables
+			int y1=cos.y;
 			int height=cos.height;
 			int width=cos.width;
 			
@@ -167,6 +171,7 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		}
 		return returnAddress;
 	}
+	@Override
 	public void start(){
 
 		Thread th=new Thread(this);
@@ -178,7 +183,7 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 	}
 	public static void Instantiate(ArrayList List,cosmeticSprite obj){
 		//USE THIS TO CREATE OBJECTS
-		cosmeticSprite spri=(cosmeticSprite)obj;
+		cosmeticSprite spri=obj;
 		
 		spri.targetname=gameController.getNewName();
 		List.add(spri);
@@ -197,7 +202,9 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 			}
 		}
 	}
+	@Override
 	public void keyTyped(KeyEvent arg0) {}
+	@Override
 	public void mouseClicked(MouseEvent mouse) {
 		//clicked and released
 		int buttonPressed=mouse.getButton();
@@ -211,16 +218,20 @@ public class Game_Applet extends Applet implements Runnable,KeyListener,MouseLis
 		//things at the position instead of just the first one
 	}
 	
+	@Override
 	public void mouseEntered(MouseEvent mouse) {
 		//when the mouse enters the applet window	
 	}
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		
 	}
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 		//mouse held
 		//implement click and drag selection
 	}
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		//mouse released
 	}
